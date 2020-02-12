@@ -83,6 +83,8 @@ def apply_formatters_to_dict(
             try:
                 yield key, formatters[key](item)
             except (TypeError, ValueError) as exc:
+                if key == 'logs':
+                    print("ETHMINT_ADJUSTMENT: IGNORING LOG FORMATTING")
                 raise type(exc)(
                     "Could not format value %r as field %r" % (item, key)
                 ) from exc
